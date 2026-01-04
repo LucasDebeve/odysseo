@@ -42,6 +42,7 @@
         "symfony/validator": "7.4.*",
         "symfony/web-link": "7.4.*",
         "symfony/yaml": "7.4.*",
+        "symfonycasts/tailwind-bundle": "^0.12.0",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0"
     },
@@ -85,6 +86,45 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "start": [
+            "composer\\Config::disableProcessTimeout",
+            "symfony server:start --no-tls --port=8000 --allow-http"
+        ],
+        "test:csfixer": "php-cs-fixer --diff --dry-run -v --show-progress=none fix",
+        "fix:csfixer": "php-cs-fixer fix --show-progress=none",
+        "test:phpstan": [
+            "vendor/bin/codecept build",
+            "phpstan analyse"
+        ],
+        "test:twig": "php vendor/bin/twig-cs-fixer lint templates/",
+        "fix:twig": "php vendor/bin/twig-cs-fixer lint --fix templates/",
+        "test:yaml": "php bin/console lint:yaml config/",
+        "test:codeception": [
+            "vendor/bin/codecept clean",
+            "php bin/console doctrine:database:drop --force --env=test",
+            "php bin/console doctrine:database:create --env=test",
+            "php bin/console doctrine:schema:create --env=test",
+            "vendor/bin/codecept run -g available",
+            "vendor/bin/codecept run --skip-group available"
+        ],
+        "test:coverage": [
+            "vendor/bin/codecept clean",
+            "php -d xdebug.mode=coverage vendor/bin/codecept run Functional,Unit,Api --coverage --coverage-html"
+        ],
+        "test": [
+            "@test:csfixer",
+            "@test:phpstan",
+            "@test:twig",
+            "@test:yaml",
+            "@test:codeception"
+        ],
+        "db": [
+          "Composer\\Config::disableProcessTimeout",
+          "php bin/console doctrine:database:drop --force --if-exists",
+            "php bin/console doctrine:database:create",
+            "php bin/console doctrine:migrations:migrate --no-interaction",
+            "php bin/console doctrine:fixtures:load --no-interaction"
         ]
     },
     "conflict": {
@@ -97,12 +137,25 @@
         }
     },
     "require-dev": {
+        "codeception/codeception": "^5.3",
+        "codeception/module-asserts": "^3.3",
+        "codeception/module-doctrine": "^3.3",
+        "codeception/module-phpbrowser": "^3.0",
+        "codeception/module-rest": "^3.4",
+        "codeception/module-symfony": "^3.8",
+        "friendsofphp/php-cs-fixer": "^3.92",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-doctrine": "^2.0",
+        "phpstan/phpstan-symfony": "^2.0",
+        "phpunit/php-code-coverage": "^12.5",
         "phpunit/phpunit": "^12.5",
         "symfony/browser-kit": "7.4.*",
         "symfony/css-selector": "7.4.*",
         "symfony/debug-bundle": "7.4.*",
         "symfony/maker-bundle": "^1.0",
+        "symfony/phpunit-bridge": "^8.0",
         "symfony/stopwatch": "7.4.*",
-        "symfony/web-profiler-bundle": "7.4.*"
+        "symfony/web-profiler-bundle": "7.4.*",
+        "zenstruck/foundry": "^2.8"
     }
 }

@@ -1,0 +1,11 @@
+parameters:
+    level: 5
+    paths:
+        - bin/
+        - config/
+        - public/
+        - src/
+        - tests/
+    excludePaths:
+        - tests/Support/_generated
+    tmpDir: var/cache/phpstan/

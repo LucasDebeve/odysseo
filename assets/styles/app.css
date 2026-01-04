@@ -1,3 +1,9 @@
-body {
-    background-color: skyblue;
+@import "tailwindcss";
+
+@theme {
+    --color-primary: #0A2463;
+    --color-primary-400: #314880;
+    --color-primary-200: #6E89CA;
+
+    --color-background: #F8F8F8;
 }
