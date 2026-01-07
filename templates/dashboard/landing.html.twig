@@ -1,0 +1,266 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Odysseo - Le pilotage nouvelle génération pour vos séjours ACM{% endblock %}
+
+{% block stylesheets %}
+<style>
+    html { scroll-behavior: smooth; }
+    section { scroll-margin-top: 6rem; }
+    .glass-card { 
+        @apply bg-surface/80 backdrop-blur-md border border-border rounded-[2.5rem] shadow-sm transition-all hover:shadow-lg; 
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<main class="bg-background text-primary antialiased">
+    
+    <nav class="sticky top-0 z-50 bg-background/60 backdrop-blur-xl border-b border-border">
+        <div class="flex items-center justify-between px-8 py-4 max-w-7xl mx-auto">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                    <div class="w-2 h-2 bg-golden rounded-full animate-pulse"></div>
+                </div>
+                <span class="text-2xl font-black tracking-tighter">ODYSSEO</span>
+            </div>
+            
+            <div class="hidden md:flex gap-10 text-[13px] font-bold uppercase tracking-widest text-primary-400">
+                <a href="#vision" class="hover:text-golden transition-colors">Vision</a>
+                <a href="#outils" class="hover:text-golden transition-colors">Outils</a>
+                <a href="#pricing" class="hover:text-golden transition-colors">Tarifs</a>
+            </div>
+
+            <a href="{{ path('auth_oauth_connect', {service: 'google'}) }}" 
+               class="bg-primary text-white px-7 py-2.5 rounded-full text-sm font-bold shadow-lg shadow-primary/20 hover:bg-primary-400 transition-all">
+                Connexion
+            </a>
+        </div>
+    </nav>
+
+    <section class="relative px-6 pt-24 pb-20 text-center overflow-hidden">
+        <div class="mx-auto max-w-4xl relative z-10">
+            <h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter mb-8 leading-[0.9]">
+                L'outil qui transforme votre vision en <span class="text-golden italic">réalité.</span>
+            </h1>
+            <p class="text-xl text-gray-500 mb-12 max-w-2xl mx-auto leading-relaxed">
+                L'interface de pilotage conçue pour les directeurs d'ACM qui veulent transformer la logistique complexe en un séjour fluide et mémorable.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#outils" class="bg-primary text-white px-10 py-5 rounded-full font-bold text-lg hover:shadow-2xl hover:shadow-primary/30 transition-all">
+                    Découvrir la plateforme
+                </a>
+                <a href="#contact" class="bg-white border border-border px-10 py-5 rounded-full font-bold text-lg hover:bg-gray-50 transition-all">
+                    Parler à un expert
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="pb-24 pt-10 border-b border-border/50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+                
+                <div class="text-center md:text-left">
+                    <div class="text-4xl md:text-5xl font-black text-primary tracking-tighter mb-2 italic">
+                        +450
+                    </div>
+                    <div class="text-[10px] md:text-xs font-black text-golden uppercase tracking-widest">
+                        Directeurs d'ACM
+                    </div>
+                    <p class="text-gray-400 text-[10px] mt-1 italic leading-tight">Nous font confiance</p>
+                </div>
+
+                <div class="text-center md:text-left border-l border-border pl-8">
+                    <div class="text-4xl md:text-5xl font-black text-primary tracking-tighter mb-2 italic">
+                        1 200
+                    </div>
+                    <div class="text-[10px] md:text-xs font-black text-golden uppercase tracking-widest">
+                        Séjours pilotés
+                    </div>
+                    <p class="text-gray-400 text-[10px] mt-1 italic leading-tight">Été, Hiver & Printemps</p>
+                </div>
+
+                <div class="text-center md:text-left border-l border-border pl-8">
+                    <div class="text-4xl md:text-5xl font-black text-primary tracking-tighter mb-2 italic">
+                        35k
+                    </div>
+                    <div class="text-[10px] md:text-xs font-black text-golden uppercase tracking-widest">
+                        Enfants gérés
+                    </div>
+                    <p class="text-gray-400 text-[10px] mt-1 italic leading-tight">Données sécurisées</p>
+                </div>
+
+                <div class="text-center md:text-left border-l border-border pl-8">
+                    <div class="text-4xl md:text-5xl font-black text-primary tracking-tighter mb-2 italic">
+                        98%
+                    </div>
+                    <div class="text-[10px] md:text-xs font-black text-golden uppercase tracking-widest">
+                        Taux de sérénité
+                    </div>
+                    <p class="text-gray-400 text-[10px] mt-1 italic leading-tight">Sondage post-séjour</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="outils" class="max-w-7xl mx-auto px-6 py-24">
+        <div class="grid grid-cols-1 md:grid-cols-6 gap-6">
+            
+            <div class="md:col-span-4 glass-card p-10 flex flex-col justify-between overflow-hidden relative">
+                <div class="relative z-10">
+                    <h3 class="text-3xl font-bold mb-4 italic">Recrutement Intelligent</h3>
+                    <p class="text-gray-500 max-w-sm">
+                        Pilotez vos quotas de diplômes en temps réel. Centralisez vos entretiens et validez vos contrats d'engagement éducatif (CEE).                 
+                    </p>
+                </div>
+                <div class="mt-8 flex items-center gap-3 relative z-10">
+                    <div class="px-4 py-2 bg-primary-50 border border-primary-200 rounded-full text-primary text-xs font-bold font-mono">Diplômés : 65%</div>
+                    <div class="px-4 py-2 bg-golden-soft border border-golden/20 rounded-full text-golden text-xs font-bold font-mono">Stagiaires : 20%</div>
+                </div>
+                <div class="absolute right-0 bottom-0 opacity-5 translate-x-1/4 translate-y-1/4">
+                    <svg width="300" height="300" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12q-1.65 0-2.825-1.175T8 8q0-1.65 1.175-2.825T12 4q1.65 0 2.825 1.175T16 8q0 1.65-1.175 2.825T12 12Zm-8 8v-2.8q0-.85.438-1.563T5.6 14.55q1.55-.775 3.15-1.163T12 13q1.65 0 3.25.388t3.15 1.162q.725.375 1.163 1.088T20 17.2V20H4Z"/></svg>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 bg-primary p-10 rounded-[2.5rem] text-white flex flex-col justify-between shadow-xl relative overflow-hidden">
+                <div>
+                    <h3 class="text-2xl font-bold leading-tight mb-4">Missions de l'équipe</h3>
+                    <p class="opacity-70 text-sm mb-6">Clarifiez qui est responsable de quoi : AS (Assistant Sanitaire), Surveillance Baignade, gestionnaire matériel ou convoyage.</p>
+                </div>
+            </div>
+
+            <div class="md:col-span-3 glass-card p-10 flex flex-col justify-between">
+                <div class="flex items-start gap-6">
+                    <div class="bg-golden-soft p-4 rounded-2xl">
+                        <svg class="text-golden w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-xl mb-2 italic">Suivi des Repos (CEE)</h4>
+                        <p class="text-gray-500 text-sm">Gérez les repos de votre équipe. Odysseo vous alerte automatiquement avant le dépassement des seuils légaux.</p>
+                    </div>
+                </div>
+                <div class="mt-6 flex items-center justify-between text-[10px] font-black bg-background p-4 rounded-2xl border border-border/50 uppercase tracking-widest">
+                    <span>Vigilance Fatigue</span>
+                    <span class="text-golden">Repos obligatoire</span>
+                </div>
+            </div>
+
+            <div class="md:col-span-3 glass-card p-10 flex items-start gap-6">
+                <div class="bg-primary-50 p-4 rounded-2xl">
+                    <svg class="text-primary w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                </div>
+                <div>
+                    <h4 class="font-bold text-xl mb-2 italic">Effectifs & Listes d'appel</h4>
+                    <p class="text-gray-500 text-sm">Listings automatiques par bus, chambres ou groupes d'activités. Ne perdez plus de temps à recompter vos effectifs lors des départs.</p>
+                </div>
+            </div>
+
+            <div class="md:col-span-6 glass-card bg-white p-10 flex flex-col md:flex-row items-center gap-12">
+                <div class="flex-1">
+                    <h2 class="text-3xl font-bold text-primary mb-6 italic">Bouclier réglementaire</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
+                        <div class="flex items-center gap-3">
+                            <span class="w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs">✓</span>
+                            Calcul automatique des repos CEE
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs">✓</span>
+                            Alerte Taux d'encadrement légal
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs">✓</span>
+                            Conforme aux normes SDJES
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs">✓</span>
+                            Export PDF spécial "Inspection"
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/3">
+                    <div class="bg-primary p-8 rounded-[2rem] text-center">
+                        <div class="text-5xl mb-4 text-golden font-black italic">100%</div>
+                        <p class="text-white text-xs font-bold uppercase tracking-widest opacity-80">Réglementaire</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-black mb-4 tracking-tight">Tarifs</h2>
+                <p class="text-gray-500">Un outil pour chaque taille de séjour.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                <div class="glass-card p-10 flex flex-col border-none bg-white shadow-xl shadow-gray-200/50">
+                    <div class="mb-8">
+                        <h3 class="text-lg font-bold text-primary-400 uppercase tracking-widest mb-2">Explorateur</h3>
+                        <div class="text-4xl font-black text-primary font-mono italic">Gratuit</div>
+                        <p class="text-sm text-gray-400 mt-2 italic">Idéal pour tester ou petit camp</p>
+                    </div>
+                    <ul class="space-y-4 mb-10 flex-1">
+                        <li class="flex items-center gap-3 text-sm font-medium"><span class="text-primary-200">✓</span> 1 séjour actif</li>
+                        <li class="flex items-center gap-3 text-sm font-medium"><span class="text-primary-200">✓</span> Max. 5 Animateurs</li>
+                        <li class="flex items-center gap-3 text-sm font-medium"><span class="text-primary-200">✓</span> Listing enfants simple</li>
+                        <li class="flex items-center gap-3 text-sm font-medium text-gray-400"><span>✕ </span> Suivi des repos</li>
+                    </ul>
+                    <button class="w-full py-4 rounded-full border-2 border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all cursor-pointer">Lancer gratuitement</button>
+                </div>
+
+                <div class="bg-primary p-10 rounded-[3rem] flex flex-col shadow-2xl relative overflow-hidden transform md:-translate-y-4">
+                    <div class="absolute top-6 right-6 bg-golden text-primary text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest">Recommandé</div>
+                    <div class="mb-8 relative z-10 text-white">
+                        <h3 class="text-lg font-bold text-primary-200 uppercase tracking-widest mb-2">Directeur</h3>
+                        <div class="text-4xl font-black italic text-golden font-mono">19€ <span class="text-xs font-normal opacity-60">/ mois</span></div>
+                        <p class="text-sm opacity-60 mt-2 italic">Le pack complet pour des séjours sereins</p>
+                    </div>
+                    <ul class="space-y-4 mb-10 flex-1 relative z-10 text-white">
+                        <li class="flex items-center gap-3 text-sm font-medium"><span class="text-golden">✓</span> Gestion des séjours du directeur</li>
+                        <li class="flex items-center gap-3 text-sm font-medium"><span class="text-golden">✓</span> Effectif équipe illimité</li>
+                        <li class="flex items-center gap-3 text-sm font-medium"><span class="text-golden">✓</span> Suivi légal des repos (CEE)</li>
+                        <li class="flex items-center gap-3 text-sm font-medium"><span class="text-golden">✓</span> Planning de service</li>
+                        <li class="flex items-center gap-3 text-sm font-medium"><span class="text-golden">✓</span> Exports listes de bus/chambres</li>
+                        <li class="flex items-center gap-3 text-sm font-medium"><span class="text-golden">✓</span> Alertes règlementaires</li>
+                    </ul>
+                    <button class="w-full py-5 rounded-full bg-golden text-primary font-black text-lg hover:scale-[1.03] transition-transform shadow-xl shadow-golden/20 cursor-pointer">Sécuriser mon séjour</button>
+                </div>
+
+                <div class="glass-card p-10 flex flex-col border-none bg-white shadow-xl shadow-gray-200/50">
+                    <div class="mb-8">
+                        <h3 class="text-lg font-bold text-primary-400 uppercase tracking-widest mb-2">Multi-directeurs</h3>
+                        <div class="text-4xl font-black text-primary font-mono italic">Sur devis</div>
+                        <p class="text-sm text-gray-400 mt-2 italic">Organismes, Mairies, CSE.</p>
+                    </div>
+                    <ul class="space-y-4 mb-10 flex-1">
+                        <li class="flex items-center gap-3 text-sm font-medium"><span class="text-primary-200">✓</span> Multi-séjours</li>
+                        <li class="flex items-center gap-3 text-sm font-medium"><span class="text-primary-200">✓</span> Pilotage de tous vos directeurs</li>
+                        <li class="flex items-center gap-3 text-sm font-medium"><span class="text-primary-200">✓</span> Statistiques globales</li>
+                        <li class="flex items-center gap-3 text-sm font-medium"><span class="text-primary-200">✓</span> Archivage légal 5 ans</li>
+                        <li class="flex items-center gap-3 text-sm font-medium"><span class="text-primary-200">✓</span> Support technique dédié</li>
+                    </ul>
+                    <button class="w-full py-4 rounded-full border-2 border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all cursor-pointer">Contacter l'équipe</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-20 bg-primary text-white rounded-t-[4rem]">
+        <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-12">
+            <div>
+                <div class="text-3xl font-black tracking-tighter mb-4 italic">ODYSSEO<span class="text-golden">.</span></div>
+                <p class="text-primary-200 text-sm max-w-xs">La technologie au service de l'éducation populaire et de la sécurité des mineurs.</p>
+            </div>
+            <div class="flex gap-10 text-sm font-bold opacity-60">
+                <a href="#" class="hover:text-golden">CGU</a>
+                <a href="#" class="hover:text-golden">Confidentialité</a>
+                <a href="#" class="hover:text-golden">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+</main>
+{% endblock %}

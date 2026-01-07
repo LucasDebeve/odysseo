@@ -1,9 +1,30 @@
 @import "tailwindcss";
 
 @theme {
+    /* Couleurs principales */
     --color-primary: #0A2463;
     --color-primary-400: #314880;
     --color-primary-200: #6E89CA;
+    --color-primary-50: #F0F4FF;
 
+    /* Couleur d'accent */
+    --color-golden: #FFBF00;
+    --color-golden-soft: #FFF8E6;
+
+    /* Surfaces et Neutres */
     --color-background: #F8F8F8;
+    --color-surface: #FFFFFF;
+    --color-border: #E5E7EB;
+    
+    /* États */
+    --color-success: #10B981;
+    --color-error: #EF4444;
+}
+
+@layer base {
+    html { scroll-behavior: smooth; }
+    section { scroll-margin-top: 6rem; }
+    .glass-card { 
+        @apply bg-surface/80 backdrop-blur-md border border-border rounded-[2.5rem] shadow-sm transition-all hover:shadow-lg; 
+    }
 }
