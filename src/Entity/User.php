@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -33,6 +36,26 @@ class User implements UserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $prenom = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $avatarPath = null;
+
+    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $dateNais = null;
+
+    /**
+     * @var Collection<int, Diplome>
+     */
+    #[ORM\ManyToMany(targetEntity: Diplome::class, inversedBy: 'users')]
+    private Collection $diplomes;
+
+    public function __construct()
+    {
+        $this->diplomes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -123,5 +146,70 @@ class User implements UserInterface
         $this->prenom = $prenom;
 
         return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getAvatarPath(): ?string
+    {
+        return $this->avatarPath;
+    }
+
+    public function setAvatarPath(?string $avatarPath): static
+    {
+        $this->avatarPath = $avatarPath;
+
+        return $this;
+    }
+
+    public function getDateNais(): ?\DateTimeImmutable
+    {
+        return $this->dateNais;
+    }
+
+    public function setDateNais(?\DateTimeImmutable $dateNais): static
+    {
+        $this->dateNais = $dateNais;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Diplome>
+     */
+    public function getDiplomes(): Collection
+    {
+        return $this->diplomes;
+    }
+
+    public function addDiplome(Diplome $diplome): static
+    {
+        if (!$this->diplomes->contains($diplome)) {
+            $this->diplomes->add($diplome);
+        }
+
+        return $this;
+    }
+
+    public function removeDiplome(Diplome $diplome): static
+    {
+        $this->diplomes->removeElement($diplome);
+
+        return $this;
+    }
+
+    public function getAge(): int
+    {
+        return (int) floor((new \DateTimeImmutable())->diff($this->dateNais)->y);
     }
 }

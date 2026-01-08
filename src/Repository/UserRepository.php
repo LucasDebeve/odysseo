@@ -24,4 +24,14 @@ class UserRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function findWithDiplomes(int $id): User
+    {
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.diplomes', 'd')
+            ->where('u.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
