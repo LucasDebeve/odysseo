@@ -34,7 +34,7 @@ class ProfileType extends AbstractType
                 'mapped' => false,
                 'constraints' => [new Image(['maxSize' => '5M'])],
                 'attr' => [
-                    'accept' => 'image/jpeg,image/png',
+                    'accept' => 'image/*',
                 ],
             ])
             ->add('dateNais', DateType::class, [

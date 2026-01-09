@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ProfileType;
 use App\Repository\DiplomeRepository;
+use App\Service\AvatarUploader;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -42,16 +44,25 @@ final class DashboardController extends AbstractController
         #[MapEntity(expr: 'repository.findWithDiplomes(id)')] User $user,
         Request $request,
         DiplomeRepository $diplomeRepository,
+        EntityManagerInterface $entityManager,
+        AvatarUploader $uploader,
     ): Response
     {
         $form = $this->createForm(ProfileType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($form->getData());
-        }
+            $avatarFile = $form->get('avatar')->getData();
+    
+            if ($avatarFile) {
+                $newFilename = $uploader->uploadAvatar($avatarFile, $user->getId(), $user->getAvatarPath());
+                $user->setAvatarPath($newFilename);
+            }
 
-        dump($form);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_profile', ['id' => $user->getId()]);
+        }
 
         return $this->render('dashboard/profile_edit.html.twig', [
             'user' => $user,
