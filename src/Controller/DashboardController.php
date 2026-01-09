@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ProfileType;
+use App\Repository\DiplomeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
+use Symfony\Component\HttpFoundation\Request;
 
 final class DashboardController extends AbstractController
 {
@@ -37,10 +40,23 @@ final class DashboardController extends AbstractController
     #[Route('/profile/{id}/edit', name: 'app_edit_profile', methods: ['GET', 'POST'])]
     public function editProfile(
         #[MapEntity(expr: 'repository.findWithDiplomes(id)')] User $user,
+        Request $request,
+        DiplomeRepository $diplomeRepository,
     ): Response
     {
+        $form = $this->createForm(ProfileType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            dump($form->getData());
+        }
+
+        dump($form);
+
         return $this->render('dashboard/profile_edit.html.twig', [
             'user' => $user,
+            'form' => $form,
+            'tous_les_diplomes' => $diplomeRepository->findAll(),
         ]);
     }
 
