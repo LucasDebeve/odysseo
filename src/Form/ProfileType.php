@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Diplome;
+use App\Entity\Specialite;
 use App\Entity\User;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -37,8 +38,24 @@ class ProfileType extends AbstractType
                     'accept' => 'image/*',
                 ],
             ])
+            ->add('specialite', EntityType::class, [
+                'class' => Specialite::class,
+                'choice_label' => 'nom',
+            ])
             ->add('dateNais', DateType::class, [
                 'widget' => 'single_text',
+            ])
+            ->add('poste', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Poste',
+                ],
+            ])
+            ->add('etudes', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Niveau d\'études',
+                ],
             ])
             ->add('diplomes', EntityType::class, [
                 'class' => Diplome::class,

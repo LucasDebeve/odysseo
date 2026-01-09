@@ -21,7 +21,7 @@
                         <div class="flex justify-between items-start mb-6">
                             <div>
                                 <h1 class="text-4xl font-black tracking-tighter text-primary italic">{{ user.prenom }} {{ user.nom }}<span class="text-golden">.</span></h1>
-                                <p class="text-gray-400 font-bold uppercase text-xs tracking-widest mt-1">Animateur Vie Quotidienne • {{ user.age }} ans</p>
+                                <p class="text-gray-400 font-bold uppercase text-xs tracking-widest mt-1">{{ user.poste }} • {{ user.age }} ans</p>
                             </div>
                             <div class="flex gap-2">
                                 {% for diplome in user.diplomes %}
@@ -41,11 +41,11 @@
                         </div>
                         <div>
                             <span class="block text-xs font-black uppercase text-gray-400 tracking-tighter">Spécialité</span>
-                            <span class="text-2xl font-black italic text-golden uppercase">Astronomie</span>
+                            <span class="text-2xl font-black italic text-golden uppercase">{{ user.specialite.nom }}</span>
                         </div>
                         <div>
                             <span class="block text-xs font-black uppercase text-gray-400 tracking-tighter">Niveau Études</span>
-                            <span class="text-2xl font-black italic">Master 1</span>
+                            <span class="text-2xl font-black italic">{{ user.etudes }}</span>
                         </div>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                         {% for i in 1..8 %}
                         <div class="group cursor-pointer">
                             <div class="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center transition-all group-hover:bg-golden group-hover:scale-110">
-                                <svg class="w-6 h-6 text-white group-hover:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                {{ ux_icon('lucide:check', {class: 'w-6 h-6 text-white group-hover:text-primary'}) }}
                             </div>
                         </div>
                         {% endfor %}
@@ -104,7 +104,7 @@
                         <h4 class="text-2xl font-black text-primary italic">Gestion de conflits complexes</h4>
                     </div>
                     <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-golden group-hover:translate-x-2 transition-transform">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        {{ ux_icon('lucide:arrow-right', {class: 'w-6 h-6'}) }}
                     </div>
                 </div>
 
@@ -114,7 +114,7 @@
                         <h4 class="text-2xl font-black italic">Éditer le profil</h4>
                     </div>
                     <div class="w-12 h-12 border-2 border-primary rounded-full flex items-center justify-center group-hover:border-white transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M12 4v16m8-8H4"/></svg>
+                        {{ ux_icon('lucide:edit-2', {class: 'w-6 h-6'}) }}
                     </div>
                 </a>
             </div>

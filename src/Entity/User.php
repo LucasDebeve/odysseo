@@ -52,6 +52,15 @@ class User implements UserInterface
     #[ORM\ManyToMany(targetEntity: Diplome::class, inversedBy: 'users')]
     private Collection $diplomes;
 
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Specialite $specialite = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $poste = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $etudes = null;
+
     public function __construct()
     {
         $this->diplomes = new ArrayCollection();
@@ -211,5 +220,41 @@ class User implements UserInterface
     public function getAge(): int
     {
         return (int) floor((new \DateTimeImmutable())->diff($this->dateNais)->y);
+    }
+
+    public function getSpecialite(): ?Specialite
+    {
+        return $this->specialite;
+    }
+
+    public function setSpecialite(?Specialite $specialite): static
+    {
+        $this->specialite = $specialite;
+
+        return $this;
+    }
+
+    public function getPoste(): ?string
+    {
+        return $this->poste;
+    }
+
+    public function setPoste(?string $poste): static
+    {
+        $this->poste = $poste;
+
+        return $this;
+    }
+
+    public function getEtudes(): ?string
+    {
+        return $this->etudes;
+    }
+
+    public function setEtudes(string $etudes): static
+    {
+        $this->etudes = $etudes;
+
+        return $this;
     }
 }

@@ -13,7 +13,6 @@
                         <svg class="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                         <span class="text-xs font-black uppercase tracking-tighter">Modifier la photo</span>
                     </div>
-                    <input type="file" name="avatar" class="absolute inset-0 opacity-0 cursor-pointer">
                     {{ form_widget(form.avatar, {attr: {class: 'absolute inset-0 opacity-0 cursor-pointer'}}) }}
                 </div>
             </div>
@@ -28,7 +27,7 @@
                             </div>
 
                             <div class="flex items-center gap-2 mb-3">                              
-                                <input type="text" name="job" value="Animateur Vie Quotidienne" class="bg-transparent border-b border-gray-200 focus:border-primary outline-none py-1">
+                                {{ form_widget(form.poste, {attr: {class: 'bg-transparent border-b border-gray-200 focus:border-primary outline-none py-1'}}) }}
                                 <span>•</span>
                                 {{ form_widget(form.dateNais, {attr: {class: 'bg-transparent border-b border-gray-200 focus:border-primary outline-none py-1'}}) }}
                             </div>
@@ -40,51 +39,47 @@
                 <div class="flex gap-10 mt-4 pt-4 border-t border-gray-50">
                     <div>
                         <label class="block text-xs font-black uppercase text-gray-400 tracking-tighter">Spécialité</label>
-                        <select name="specialite" class="text-xl font-black italic text-golden uppercase bg-transparent outline-none appearance-none cursor-pointer">
-                            <option value="astronomie" selected>Astronomie</option>
-                            <option value="sport">Sport Nature</option>
-                            <option value="theatre">Théâtre</option>
-                        </select>
+                        {{ form_widget(form.specialite, {attr: {class: 'text-xl font-black italic text-golden uppercase bg-transparent outline-none appearance-none cursor-pointer'}}) }}
                     </div>
                     <div>
                         <label class="block text-xs font-black uppercase text-gray-400 tracking-tighter">Niveau Études</label>
-                        <input type="text" name="etudes" value="Master 1" class="text-xl font-black italic bg-transparent border-b border-transparent focus:border-gray-200 outline-none w-32">
+                        {{ form_widget(form.etudes, {attr: {class: 'text-xl font-black italic bg-transparent border-b border-transparent focus:border-gray-200 outline-none w-32'}}) }}
                     </div>
                     <div class="flex flex-col gap-4">
-    <label class="text-xs font-black uppercase text-gray-400 tracking-widest italic">
-        {{ form_label(form.diplomes) }}
-    </label>
-    
-    <div class="flex flex-wrap gap-3">
-        {% for identifier, child in form.diplomes %}
-            {% set diplome = form.diplomes.vars.choices[identifier].data %}
-            <label class="relative cursor-pointer group">
-                {# On rend l'input réel mais caché #}
-                {{ form_widget(child, {'attr': {'class': 'peer hidden'}}) }}
-                
-                {# Le design personnalisé qui réagit au 'peer' #}
-                <div class="px-5 py-3 rounded-2xl border-2 transition-all duration-300 flex items-center gap-3
-                    border-gray-100 bg-gray-50 text-gray-400
-                    peer-checked:border-primary peer-checked:shadow-lg peer-checked:scale-[1.05] hover:scale-[1.05]
-                    {# Utilisation de l'objet diplôme récupéré en amont #}
-                    {{ diplome.isEquivalentBafa ? 'peer-checked:bg-primary peer-checked:text-white peer-checked:hover:bg-primary-400' : 'peer-checked:bg-golden peer-checked:border-golden peer-checked:text-primary peer-checked:hover:bg-golden-400' }}
-                    hover:border-gray-300 peer-checked:hover:border-primary hover:bg-white">
-                    
-                    <span class="text-xs font-black italic uppercase tracking-tighter">
-                        {{ child.vars.label }}
-                    </span>
-                    
-                    <div class="w-4 h-4 rounded-full border border-current flex items-center justify-center opacity-0 peer-checked:opacity-100 transition-opacity">
-                        <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"/>
-                        </svg>
+                        <label class="text-xs font-black uppercase text-gray-400 tracking-widest italic">
+                            {{ form_label(form.diplomes) }}
+                        </label>
+                        
+                        <div class="flex flex-wrap gap-3">
+                            {% for identifier, child in form.diplomes %}
+                                {% set diplome = form.diplomes.vars.choices[identifier].data %}
+                                <label class="relative cursor-pointer group">
+                                    {# On rend l'input réel mais caché #}
+                                    {{ form_widget(child, {'attr': {'class': 'peer hidden'}}) }}
+                                    
+                                    {# Le design personnalisé qui réagit au 'peer' #}
+                                    <div class="px-5 py-3 rounded-2xl border-2 transition-all duration-300 flex items-center gap-3
+                                        border-gray-100 bg-gray-50 text-gray-400
+                                        peer-checked:border-primary peer-checked:shadow-lg peer-checked:scale-[1.05] hover:scale-[1.05]
+                                        {# Utilisation de l'objet diplôme récupéré en amont #}
+                                        {{ diplome.isEquivalentBafa ? 'peer-checked:bg-primary peer-checked:text-white peer-checked:hover:bg-primary-400' : 'peer-checked:bg-golden peer-checked:border-golden peer-checked:text-primary peer-checked:hover:bg-golden-400' }}
+                                        hover:border-gray-300 peer-checked:hover:border-primary hover:bg-white">
+                                        
+                                        <span class="text-xs font-black italic uppercase tracking-tighter">
+                                            {{ child.vars.label }}
+                                        </span>
+                                        
+                                        <div class="w-4 h-4 rounded-full border border-current flex items-center justify-center opacity-0 peer-checked:opacity-100 transition-opacity">
+                                            <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </label>
+                            {% endfor %}
+                        </div>
+                        {{ form_errors(form.diplomes) }}
                     </div>
-                </div>
-            </label>
-        {% endfor %}
-    </div>
-    {{ form_errors(form.diplomes) }}
-</div>
                 </div>
             </div>
         </div>
@@ -97,7 +92,7 @@
                     <label class="relative cursor-pointer group">
                         <input type="checkbox" class="peer hidden" name="skills[]" value="{{ i }}" {{ i < 5 ? 'checked' : '' }}>
                         <div class="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center transition-all peer-checked:bg-golden peer-checked:scale-110 group-hover:bg-white/20">
-                            <svg class="w-6 h-6 text-white peer-checked:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                            {{ ux_icon('lucide:check', {class: 'w-6 h-6 text-white peer-checked:text-primary'}) }}
                         </div>
                     </label>
                     {% endfor %}
