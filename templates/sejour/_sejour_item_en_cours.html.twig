@@ -1,0 +1,60 @@
+<a href="{{ path('app_sejour_show', {sejour: sejour.id}) }}" class="group bg-white rounded-[2.5rem] p-2 shadow-sm border border-gray-100 hover:shadow-xl transition-all cursor-pointer">
+    <div class="relative h-48 rounded-[2rem] overflow-hidden bg-gray-100">
+        {# Image colorée par défaut pour les séjours actifs #}
+        <img src="{{ sejour.image ?: 'https://images.unsplash.com/photo-1475483768296-6163e08872a1' }}" 
+                class="w-full h-full object-cover transition-all duration-700">
+        
+        <div class="absolute top-4 left-4">
+            <span class="bg-primary text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest italic animate-pulse">
+                En cours
+            </span>
+        </div>
+        
+        <div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-lg text-[10px] font-black text-primary">
+            {{ sejour.saison }}
+        </div>
+    </div>
+
+    <div class="p-6">
+        <div class="flex justify-between items-start mb-4">
+            <h3 class="text-xl font-black italic text-primary leading-tight">{{ sejour.libelle }}</h3>
+            {# Affichage des initiales des animateurs présents #}
+            <div class="flex -space-x-2">
+                {% for animateur in sejour.equipe|slice(0, 3) %}
+                    <div class="w-7 h-7 rounded-full bg-primary text-white border-2 border-white flex items-center justify-center text-[8px] font-bold uppercase" title="{{ animateur.nom }}">
+                        {{ animateur.nom|slice(0, 2)|upper }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="mb-6">
+            {% set totalDays = sejour.dateFin.diff(sejour.dateDebut).days %}
+            {% set daysPassed = date().diff(sejour.dateDebut).days %}
+            {% set progress = (daysPassed / totalDays * 100)|round %}
+            
+            <div class="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden mb-2">
+                <div class="bg-primary h-full transition-all duration-1000" style="width: {{ progress > 100 ? 100 : progress }}%"></div>
+            </div>
+            <div class="flex justify-between text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                <span>Jour {{ daysPassed }} / {{ totalDays }}</span>
+                <span>{{ sejour.dateFin.diff(date()).days }}j restants</span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div class="bg-primary-50 p-3 rounded-xl text-left">
+                <span class="block text-[8px] font-black text-primary/40 uppercase tracking-tighter">Effectif</span>
+                    <span class="text-lg font-black text-primary italic">{{ sejour.enfants|length }} / {{ sejour.capaciteAccueil|default(0) }}</span>
+            </div>
+            <div class="bg-green-50 p-3 rounded-xl text-left border border-green-100">
+                <span class="block text-[8px] font-black text-green-600/60 uppercase">Dossier SDJES</span>
+                <span class="text-md font-black text-green-600 italic">Conforme</span>
+            </div>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-gray-50 flex justify-center">
+             <span class="text-[10px] font-black text-primary uppercase tracking-tighter group-hover:text-golden transition-colors italic">Accéder au pilotage →</span>
+        </div>
+    </div>
+</a>

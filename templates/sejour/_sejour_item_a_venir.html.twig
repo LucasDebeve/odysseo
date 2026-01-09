@@ -1,0 +1,52 @@
+{# partials/_sejour_a_venir.html.twig #}
+<a href="{{ path('app_sejour_show', {sejour: sejour.id}) }}" class="group bg-white rounded-[2.5rem] p-2 shadow-sm border border-gray-100 hover:shadow-xl transition-all cursor-pointer opacity-90 hover:opacity-100">
+    <div class="relative h-48 rounded-[2rem] overflow-hidden bg-gray-100 flex items-center justify-center">
+        {% if sejour.image %}
+            <img src="{{ sejour.image }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+        {% else %}
+            <svg class="w-12 h-12 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+            </svg>
+        {% endif %}
+
+        <div class="absolute top-4 left-4">
+            <span class="bg-golden text-primary text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest italic shadow-sm">
+                À venir
+            </span>
+        </div>
+        
+        <div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-lg text-[10px] font-black text-primary">
+            {{ sejour.saison|upper }}
+        </div>
+    </div>
+    
+    <div class="p-6">
+        <div class="mb-4">
+            <h3 class="text-xl font-black italic text-primary leading-tight">{{ sejour.libelle }}</h3>
+            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter mt-1">
+                Départ dans {{ date().diff(sejour.dateDebut).days }} jours
+            </p>
+        </div>
+        
+        <div class="space-y-3 mb-6">
+            {% set ratioLegals = 12 %} {# On peut imaginer une variable selon l'âge des enfants #}
+            {% set besoinAnims = (sejour.capaciteAccueil / ratioLegals)|round(0, 'ceil') %}
+            {% set pourcentageRecrutement = besoinAnims > 0 ? (sejour.equipe|length / besoinAnims * 100)|round : 0 %}
+            
+            <div class="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                <div class="bg-golden h-full transition-all duration-1000" style="width: {{ pourcentageRecrutement > 100 ? 100 : pourcentageRecrutement }}%"></div>
+            </div>
+            <div class="flex justify-between text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                <span>Équipe : {{ sejour.equipe|length }} / {{ besoinAnims }}</span>
+                <span class="{{ pourcentageRecrutement >= 100 ? 'text-green-500' : '' }}">
+                    {{ pourcentageRecrutement }}%
+                </span>
+            </div>
+        </div>
+
+        <div 
+           class="block w-full py-3 text-center rounded-xl border-2 border-primary/5 text-primary text-xs font-black uppercase tracking-widest group-hover:bg-primary group-hover:text-white transition-all">
+            Finaliser la préparation
+        </div>
+    </div>
+</a>

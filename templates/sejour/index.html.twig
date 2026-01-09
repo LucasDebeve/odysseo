@@ -1,0 +1,31 @@
+{% extends 'navbase.html.twig' %}
+
+{% block title %}Mes Séjours - Odysseo{% endblock %}
+
+{% block content %}
+<header class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div>
+        <h1 class="text-3xl font-black tracking-tighter text-primary italic">Mes Séjours<span class="text-golden">.</span></h1>
+        <p class="text-xs text-gray-400 font-bold uppercase tracking-widest mt-1">
+            {{ sejours|length }} séjour{{ sejours|length > 1 ? 's' : '' }} enregistré{{ sejours|length > 1 ? 's' : '' }}
+        </p>
+    </div>
+
+    <div class="flex items-center gap-3 bg-white p-1.5 rounded-2xl shadow-sm border border-gray-100">
+        <button class="flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-xl text-sm font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M12 4v16m8-8H4"/></svg>
+            <span>Nouveau séjour</span>
+        </button>
+    </div>
+</header>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {% for sejour in sejours %}
+        {% set statut = sejour.statut == 'Terminé' ? 'termine' : sejour.statut == 'À venir' ? 'a_venir' : 'en_cours' %}
+        {{ include('sejour/_sejour_item_' ~ statut ~ '.html.twig') }}
+    {% else %}
+        <div class="md:col-span-10 py-20 text-center bg-white rounded-[2.5rem] border-2 border-dashed border-gray-100">
+            <p class="text-gray-400 font-bold italic">Aucun séjour trouvé. Commencez par en créer un.</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
