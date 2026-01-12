@@ -41,7 +41,7 @@
                         </div>
                         <div>
                             <span class="block text-xs font-black uppercase text-gray-400 tracking-tighter">Spécialité</span>
-                            <span class="text-2xl font-black italic text-golden uppercase">{{ user.specialite.nom }}</span>
+                            <span class="text-2xl font-black italic text-golden uppercase">{{ user.specialite.nom|default('Non renseigné') }}</span>
                         </div>
                         <div>
                             <span class="block text-xs font-black uppercase text-gray-400 tracking-tighter">Niveau Études</span>

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\SejourRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -29,6 +30,24 @@ class Sejour
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
+
+    /**
+     * @var Collection<int, User>
+     */
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'sejours')]
+    private Collection $equipe;
+
+    /**
+     * @var Collection<int, EnfantSejour>
+     */
+    #[ORM\OneToMany(targetEntity: EnfantSejour::class, mappedBy: 'sejour')]
+    private Collection $enfants;
+
+    public function __construct()
+    {
+        $this->equipe = new ArrayCollection();
+        $this->enfants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -111,19 +130,63 @@ class Sejour
         return 'PRINTEMPS ' . $this->dateDebut->format('Y');
     }
 
-    public function getEquipe(): ArrayCollection
-    {
-        return new ArrayCollection([]);
-    }
-
-    public function getEnfants(): ArrayCollection
-    {
-        return new ArrayCollection([]);
-    }
-
     public function getPourcentageRemplissage(): int
     {
         if ($this->capaciteAccueil <= 0) return 0;
         return (int)(($this->getEnfants()->count() / $this->capaciteAccueil) * 100);
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getEquipe(): Collection
+    {
+        return $this->equipe;
+    }
+
+    public function addEquipe(User $animateur): static
+    {
+        if (!$this->equipe->contains($animateur)) {
+            $this->equipe->add($animateur);
+        }
+
+        return $this;
+    }
+
+    public function removeEquipe(User $animateur): static
+    {
+        $this->equipe->removeElement($animateur);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EnfantSejour>
+     */
+    public function getEnfants(): Collection
+    {
+        return $this->enfants;
+    }
+
+    public function addEnfant(EnfantSejour $sejour): static
+    {
+        if (!$this->enfants->contains($sejour)) {
+            $this->enfants->add($sejour);
+            $sejour->setSejour($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEnfant(EnfantSejour $sejour): static
+    {
+        if ($this->enfants->removeElement($sejour)) {
+            // set the owning side to null (unless already changed)
+            if ($sejour->getSejour() === $this) {
+                $sejour->setSejour(null);
+            }
+        }
+
+        return $this;
     }
 }

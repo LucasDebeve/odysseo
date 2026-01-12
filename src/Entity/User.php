@@ -61,9 +61,23 @@ class User implements UserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $etudes = null;
 
+    /**
+     * @var Collection<int, Sejour>
+     */
+    #[ORM\ManyToMany(targetEntity: Sejour::class, mappedBy: 'animateurs')]
+    private Collection $sejours;
+
+    /**
+     * @var Collection<int, EnfantSejour>
+     */
+    #[ORM\OneToMany(targetEntity: EnfantSejour::class, mappedBy: 'enfant', orphanRemoval: true)]
+    private Collection $participations;
+
     public function __construct()
     {
         $this->diplomes = new ArrayCollection();
+        $this->sejours = new ArrayCollection();
+        $this->participations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -254,6 +268,63 @@ class User implements UserInterface
     public function setEtudes(string $etudes): static
     {
         $this->etudes = $etudes;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sejour>
+     */
+    public function getSejours(): Collection
+    {
+        return $this->sejours;
+    }
+
+    public function addSejour(Sejour $sejour): static
+    {
+        if (!$this->sejours->contains($sejour)) {
+            $this->sejours->add($sejour);
+            $sejour->addEquipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSejour(Sejour $sejour): static
+    {
+        if ($this->sejours->removeElement($sejour)) {
+            $sejour->removeEquipe($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EnfantSejour>
+     */
+    public function getParticipations(): Collection
+    {
+        return $this->participations;
+    }
+
+    public function addParticipation(EnfantSejour $participation): static
+    {
+        if (!$this->participations->contains($participation)) {
+            $this->participations->add($participation);
+            $participation->setEnfant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipation(EnfantSejour $participation): static
+    {
+        if ($this->participations->removeElement($participation)) {
+            // set the owning side to null (unless already changed)
+            if ($participation->getEnfant() === $this) {
+                $participation->setEnfant(null);
+            }
+        }
 
         return $this;
     }
