@@ -11,22 +11,20 @@
 </header>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-    {% set stats = [
-        {label: 'Enfants', val: '66', color: 'bg-blue-50', icon: 'lucide:users'},
-        {label: 'Animateurs', val: '7', color: 'bg-purple-50', icon: 'lucide:user-cog'},
-        {label: 'Avancée', val: 'J-14', color: 'bg-amber-50', icon: 'lucide:calendar-clock'}
-    ] %}
-    {% for stat in stats %}
-    <div class="bg-white p-5 rounded-3xl border border-gray-100 shadow-sm flex items-center justify-between">
-        <div>
-            <p class="text-[10px] font-black uppercase text-gray-400 tracking-widest">{{ stat.label }}</p>
-            <p class="text-2xl font-black">{{ stat.val }}</p>
-        </div>
-        <div class="p-3 {{ stat.color }} rounded-2xl">
-            {{ ux_icon(stat.icon, { class: 'w-6 h-6 text-gray-700' }) }}
-        </div>
-    </div>
-    {% endfor %}
+    {% set diff = date().diff(sejour.dateDebut) %}
+    {% if diff.invert == 1 %}
+        {% set avanceStr = 'J' ~ (diff.days + 1) %}
+    {% else %}
+        {% if diff.days == 0 %}
+            {% set avanceStr = 'J1' %}
+        {% else %}
+            {% set avanceStr = 'J-' ~ diff.days %}
+        {% endif %}
+    {% endif %}
+
+    {{ include('sejour/partials/_sejour_stat_card.html.twig', {label: 'Enfants', val: sejour.enfants|length, color: 'bg-blue-50', icon: 'lucide:users'}) }}
+    {{ include('sejour/partials/_sejour_stat_card.html.twig', {label: 'Animateurs', val: sejour.equipe|length, color: 'bg-purple-50', icon: 'lucide:user-cog'}) }}
+    {{ include('sejour/partials/_sejour_stat_card.html.twig', {label: 'Avancée', val: avanceStr, color: 'bg-amber-50', icon: 'lucide:calendar-clock'}) }}
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch mb-6">

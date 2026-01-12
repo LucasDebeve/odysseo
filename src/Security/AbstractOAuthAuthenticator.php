@@ -50,7 +50,7 @@ abstract class AbstractOAuthAuthenticator extends OAuth2Authenticator
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->router->generate('app_dashboard'));
+        return new RedirectResponse($this->router->generate('app_sejours'));
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response

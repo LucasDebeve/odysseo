@@ -19,9 +19,12 @@ class SejourRepository extends ServiceEntityRepository
     /**
      * @return Sejour[]
      */
-    public function findAllWithResume(): array
+    public function findCurrentAndFuture(): array
     {
         return $this->createQueryBuilder('s')
+            ->where('s.dateFin >= :date')
+            ->orderBy('s.dateDebut', 'ASC')
+            ->setParameter('date', date('Y-m-d'))
             ->getQuery()
             ->getResult();
     }

@@ -29,8 +29,8 @@
         </div>
 
         <div class="mb-6">
-            {% set totalDays = sejour.dateFin.diff(sejour.dateDebut).days %}
-            {% set daysPassed = date().diff(sejour.dateDebut).days %}
+            {% set totalDays = sejour.dateFin.diff(sejour.dateDebut).days + 1 %}
+            {% set daysPassed = date().diff(sejour.dateDebut).days + 1 %}
             {% set progress = (daysPassed / totalDays * 100)|round %}
             
             <div class="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden mb-2">
@@ -38,7 +38,7 @@
             </div>
             <div class="flex justify-between text-[10px] font-bold text-gray-400 uppercase tracking-widest">
                 <span>Jour {{ daysPassed }} / {{ totalDays }}</span>
-                <span>{{ sejour.dateFin.diff(date()).days }}j restants</span>
+                <span>{{ sejour.dateFin.diff(date()).days + 1 }}j restants</span>
             </div>
         </div>
 

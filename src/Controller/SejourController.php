@@ -17,7 +17,7 @@ final class SejourController extends AbstractController
         SejourRepository $sejourRepository,
     ): Response
     {
-        $sejours = $sejourRepository->findAllWithResume();
+        $sejours = $sejourRepository->findCurrentAndFuture();
         return $this->render('sejour/index.html.twig', [
             'sejours' => $sejours,
         ]);

@@ -4,18 +4,24 @@
 
 {% block body %}
 <div class="flex h-screen bg-background antialiased text-primary">
-    
     <aside class="w-20 bg-primary flex flex-col items-center py-6 gap-8">
         <div class="w-10 h-10 flex items-center justify-center text-background">
             <span class="text-2xl font-black tracking-tighter mr-2">O</span>
             <div class="w-2 h-2 bg-golden rounded-full animate-pulse"></div>
         </div>
 
-        <nav class="flex flex-col gap-6">
-            {{ include('partials/_nav_item.html.twig', {route: 'app_sejours', icon: 'layout-dashboard'}) }}
+        <nav class="flex flex-col gap-6 h-full">
+            {{ include('partials/_nav_item.html.twig', {route: 'app_sejours', icon: 'home'}) }}
+
+            {% if sejour is defined %}
+                <hr class="border-border/50 w-full">
+                {{ include('partials/_nav_item.html.twig', {route: 'app_sejour_show', icon: 'layout-dashboard', routeParams: {sejour: sejour.id}}) }}
+                {{ include('partials/_nav_item.html.twig', {route: 'app_sejour_show', icon: 'calendar', routeParams: {sejour: sejour.id}}) }}
+            {% endif %}
+
+            <div class="grow"></div>
+            <hr class="border-border/50 w-full">
             {{ include('partials/_nav_item.html.twig', {route: 'app_my_profile', icon: 'user-round'}) }}
-            {{ include('partials/_nav_item.html.twig', {route: 'app_sejours', icon: 'calendar'}) }}
-            {{ include('partials/_nav_item.html.twig', {route: 'app_sejours', icon: 'file'}) }}
         </nav>
     </aside>
 

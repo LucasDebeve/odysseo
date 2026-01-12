@@ -24,7 +24,7 @@
         <div class="mb-4">
             <h3 class="text-xl font-black italic text-primary leading-tight">{{ sejour.libelle }}</h3>
             <p class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter mt-1">
-                Départ dans {{ date().diff(sejour.dateDebut).days }} jours
+                Départ dans {{ date().diff(sejour.dateDebut).days }} jour{{ date().diff(sejour.dateDebut).days > 1 ? 's' : '' }}
             </p>
         </div>
         
